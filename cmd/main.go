@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"wb-l0/config"
+	"wb-l0/internal/handlers"
 )
 
 func main() {
@@ -14,4 +15,13 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	server, err := handlers.CreateServer(conf)
+	if err != nil {
+		log.Fatal("Cant starting server", err)
+	}
+	err = server.StartServer(":3000")
+	if err != nil {
+		log.Fatalf("Cant starting server on this port", err)
+	}
+	log.Println("Starting server...")
 }
