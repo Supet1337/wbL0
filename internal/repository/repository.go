@@ -18,12 +18,12 @@ func CreatePostgres(config *config.Config) (*DataBase, error) {
 	database := DataBase{}
 	log := zerolog.New(os.Stderr).With().Timestamp().Caller().Logger()
 	database.Log = &log
-	var err error
-	database.DB, err = pkg.GetConn(config)
+	db, err := pkg.GetConn(config)
 	if err != nil {
 		log.Fatal().Err(err).Send()
 		return nil, err
 	}
+	database.DB = db
 
 	_, err = database.DB.Exec(`CREATE TABLE IF NOT EXISTS orders
 (

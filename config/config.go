@@ -7,11 +7,11 @@ import (
 
 type Config struct {
 	Postgres struct {
-		User     *string `json:"user"`
-		Password *string `json:"password"`
-		Host     *string `json:"host"`
-		Port     *string `json:"port"`
-		DbName   *string `json:"dbName"`
+		User     string `json:"user"`
+		Password string `json:"password"`
+		Host     string `json:"host"`
+		Port     string `json:"port"`
+		DbName   string `json:"dbName"`
 	} `json:"postgres"`
 }
 

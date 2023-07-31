@@ -4,7 +4,6 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/rs/zerolog"
 	"os"
-	"wb-l0/config"
 	"wb-l0/internal"
 	"wb-l0/internal/middleware"
 	"wb-l0/internal/usecase"
@@ -16,21 +15,12 @@ type FiberServer struct {
 	Log     *zerolog.Logger
 }
 
-func CreateServer(conf *config.Config) (*FiberServer, error) {
+func CreateServer(ucase *usecase.Usecase) (*FiberServer, error) {
 	server := FiberServer{}
 	server.server = fiber.New()
 	log := zerolog.New(os.Stderr).With().Timestamp().Caller().Logger()
 	server.Log = &log
-	usecase, err := usecase.NewUsecase(conf)
-	if err != nil {
-		server.Log.Error().Err(err).Send()
-		return nil, &internal.Error{
-			Message: err.Error(),
-			Code:    500,
-		}
-	}
-	server.usecase = usecase
-
+	server.usecase = ucase
 	return &server, nil
 }
 
