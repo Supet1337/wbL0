@@ -4,6 +4,7 @@ main:
 	go mod download
 	docker compose build
 	docker compose up -d
+	sleep 5
 	go run cmd/main.go
 
 publisher:

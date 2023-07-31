@@ -26,10 +26,10 @@ func CreatePostgres(config *config.Config) (*DataBase, error) {
 	database.DB = db
 
 	_, err = database.DB.Exec(`CREATE TABLE IF NOT EXISTS orders
-(
-    order_uid text primary key,
-    model json  not null
-)`)
+	(
+	   order_uid text primary key,
+	   model json  not null
+	)`)
 	if err != nil {
 		log.Fatal().Err(err).Send()
 		return nil, err

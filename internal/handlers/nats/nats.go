@@ -5,6 +5,7 @@ import (
 	"github.com/nats-io/stan.go"
 	"github.com/rs/zerolog"
 	"os"
+	"time"
 	"wb-l0/internal"
 	"wb-l0/internal/middleware"
 	"wb-l0/internal/usecase"
@@ -32,7 +33,13 @@ func NewNats(usecase *usecase.Usecase) (*Nats, error) {
 		}
 	}
 	defer nc.Close()
-	sc, err := stan.Connect("cluster", "client", stan.NatsConn(nc))
+	time.Sleep(3 * time.Second)
+
+	sc, err := stan.Connect("test-cluster", "client",
+		stan.SetConnectionLostHandler(func(_ stan.Conn, reason error) {
+			nts.Log.Fatal().Err(reason).Msg("Can not connect to NATS STREAMING")
+		}))
+
 	if err != nil {
 		nts.Log.Fatal().Err(err).Msg("Can not connect to NATS STREAMING")
 		return nil, &internal.Error{
