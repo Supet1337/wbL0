@@ -17,6 +17,7 @@ type Nats struct {
 	Log     *zerolog.Logger
 }
 
+// Конструткор натс
 func NewNats(usecase *usecase.Usecase) (*Nats, error) {
 	nts := Nats{}
 	log := zerolog.New(os.Stderr).With().Timestamp().Caller().Logger()
@@ -52,6 +53,7 @@ func NewNats(usecase *usecase.Usecase) (*Nats, error) {
 	return &nts, nil
 }
 
+// Подписка
 func (n *Nats) Subscribe(topic string) error {
 	_, err := n.Conn.Subscribe(topic, func(msg *stan.Msg) {
 		id, err := middleware.Validate(msg.Data)

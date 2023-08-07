@@ -6,6 +6,7 @@ import (
 	"log"
 )
 
+// Скрипт для отправки сообщений в натс
 func main() {
 	nc, err := nats.Connect(nats.DefaultURL)
 	if err != nil {

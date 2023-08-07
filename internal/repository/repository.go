@@ -14,6 +14,7 @@ type DataBase struct {
 	Log *zerolog.Logger
 }
 
+// Конструктор репозитория
 func CreatePostgres(config *config.Config) (*DataBase, error) {
 	database := DataBase{}
 	log := zerolog.New(os.Stderr).With().Timestamp().Caller().Logger()

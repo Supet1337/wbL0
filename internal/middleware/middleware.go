@@ -7,6 +7,7 @@ import (
 	"wb-l0/internal"
 )
 
+// Валидация
 func Validate(body []byte) (string, error) {
 	var order internal.Order
 

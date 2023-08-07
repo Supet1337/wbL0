@@ -14,6 +14,7 @@ type Usecase struct {
 	Log        *zerolog.Logger
 }
 
+// Конструткор usecase
 func NewUsecase(conf *config.Config) (*Usecase, error) {
 	usecase := Usecase{}
 	var err error
